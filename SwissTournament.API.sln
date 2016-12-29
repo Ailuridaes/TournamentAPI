@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissTournament.API", "SwissTournament.API\SwissTournament.API.csproj", "{35614973-0F07-479D-A92E-D3AE03D3F7D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissTournament.API.Tests", "SwissTournament.API.Tests\SwissTournament.API.Tests.csproj", "{594A0C42-6A48-435E-BA12-216AB329E4D3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35614973-0F07-479D-A92E-D3AE03D3F7D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35614973-0F07-479D-A92E-D3AE03D3F7D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35614973-0F07-479D-A92E-D3AE03D3F7D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35614973-0F07-479D-A92E-D3AE03D3F7D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{594A0C42-6A48-435E-BA12-216AB329E4D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{594A0C42-6A48-435E-BA12-216AB329E4D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{594A0C42-6A48-435E-BA12-216AB329E4D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{594A0C42-6A48-435E-BA12-216AB329E4D3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
