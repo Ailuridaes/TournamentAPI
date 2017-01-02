@@ -14,5 +14,12 @@ namespace SwissTournament.API.Models
 
         public virtual ICollection<Matchup> Matchups { get; set; }
         public virtual Tournament Tournament { get; set; }
+
+        public Player(string playerName, int tournamentId)
+        {
+            this.Name = playerName;
+            this.TournamentId = tournamentId;
+            this.Standing = 1;
+        }
     }
 }

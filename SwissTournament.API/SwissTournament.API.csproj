@@ -94,10 +94,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\TournamentsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\TournamentDataContext.cs" />
+    <Compile Include="Infrastructure\TournamentOptions.cs" />
     <Compile Include="Migrations\201612290837445_InitialMigration.cs" />
     <Compile Include="Migrations\201612290837445_InitialMigration.Designer.cs">
       <DependentUpon>201612290837445_InitialMigration.cs</DependentUpon>
@@ -120,7 +122,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201612290837445_InitialMigration.resx">
