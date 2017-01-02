@@ -95,6 +95,10 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\TournamentsController.cs" />
+    <Compile Include="DTO\MatchDto.cs" />
+    <Compile Include="DTO\MatchupDto.cs" />
+    <Compile Include="DTO\PlayerDto.cs" />
+    <Compile Include="DTO\TournamentDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
