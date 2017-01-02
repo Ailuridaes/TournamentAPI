@@ -45,7 +45,6 @@ namespace SwissTournament.API.Controllers
             db.Tournaments.Add(tournament);
 
             // TODO: Check # of players?
-            // Call method in player controller? Repository?
             foreach (string name in options.PlayerNames)
             {
                 var player = new Player(name, tournament.TournamentId);
@@ -54,7 +53,34 @@ namespace SwissTournament.API.Controllers
 
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = tournament.TournamentId }, tournament);
+            // TODO: Switch to DTO
+            // Create anonymous object
+            /* 
+             * Could take this approach instead of DTO classes
+             * So can perform specific queries
+             * Rather than rely on client to sort relevant info
+             * Ex. Return only matchups for the current round
+             * But might be able to perform query first,
+             * then automap children to DTOs and pass DTOs to parent mapper
+             * Could make request to Match controller and perform query + mapping there
+             */
+            var tournamentDto = new
+            {
+                TournamentId = tournament.TournamentId,
+                Round = tournament.Round,
+                TotalRounds = tournament.TotalRounds,
+                StartTime = tournament.StartTime,
+                
+                Players = tournament.Players.Select(p => new
+                {
+                    PlayerId = p.PlayerId,
+                    TournamentId = p.TournamentId,
+                    Name = p.Name,
+                    Standing = p.Standing
+                })
+            };
+
+            return CreatedAtRoute("DefaultApi", new { id = tournament.TournamentId }, tournamentDto);
         }
 
 
