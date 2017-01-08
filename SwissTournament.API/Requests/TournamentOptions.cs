@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace SwissTournament.API.Infrastructure
+namespace SwissTournament.API.Requests
 {
     public class TournamentOptions
     {

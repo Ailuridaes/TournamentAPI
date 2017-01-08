@@ -102,18 +102,26 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\DatabaseFactory.cs" />
+    <Compile Include="Infrastructure\Disposable.cs" />
     <Compile Include="Infrastructure\TournamentDataContext.cs" />
-    <Compile Include="Infrastructure\TournamentOptions.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\PlayerRepository.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\TournamentRepository.cs" />
+    <Compile Include="Requests\TournamentOptions.cs" />
     <Compile Include="Migrations\201612290837445_InitialMigration.cs" />
     <Compile Include="Migrations\201612290837445_InitialMigration.Designer.cs">
       <DependentUpon>201612290837445_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Match.cs" />
-    <Compile Include="Models\Matchup.cs" />
-    <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\Tournament.cs" />
+    <Compile Include="Domain\Match.cs" />
+    <Compile Include="Domain\Matchup.cs" />
+    <Compile Include="Domain\Player.cs" />
+    <Compile Include="Domain\Tournament.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\TournamentService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

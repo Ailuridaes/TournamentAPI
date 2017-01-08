@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SwissTournament.API.Models
+namespace SwissTournament.API.Domain
 {
     public class Match
     {

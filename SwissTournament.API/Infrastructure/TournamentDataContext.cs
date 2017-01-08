@@ -1,4 +1,4 @@
-﻿using SwissTournament.API.Models;
+﻿using SwissTournament.API.Domain;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

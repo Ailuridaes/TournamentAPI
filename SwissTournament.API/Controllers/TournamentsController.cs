@@ -9,12 +9,16 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using SwissTournament.API.Infrastructure;
-using SwissTournament.API.Models;
+using SwissTournament.API.Domain;
+using SwissTournament.API.Requests;
+using SwissTournament.API.Service;
 
 namespace SwissTournament.API.Controllers
 {
     public class TournamentsController : ApiController
     {
+        private TournamentService _tournamentService = new TournamentService();
+        // TODO: REMOVE once all dependencies are replaced
         private TournamentDataContext db = new TournamentDataContext();
 
         //// POST: api/Tournaments
@@ -41,17 +45,7 @@ namespace SwissTournament.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var tournament = new Tournament();
-            db.Tournaments.Add(tournament);
-
-            // TODO: Check # of players?
-            foreach (string name in options.PlayerNames)
-            {
-                var player = new Player(name, tournament.TournamentId);
-                db.Players.Add(player);
-            }
-
-            db.SaveChanges();
+            var tournament = _tournamentService.createTournament(options.PlayerNames);
 
             // TODO: Switch to DTO
             // Create anonymous object
