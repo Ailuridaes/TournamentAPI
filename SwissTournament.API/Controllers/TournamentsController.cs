@@ -45,7 +45,7 @@ namespace SwissTournament.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            var tournament = _tournamentService.createTournament(options.PlayerNames);
+            var tournament = _tournamentService.CreateTournament(options.PlayerNames);
 
             // TODO: Switch to DTO
             // Create anonymous object
@@ -66,12 +66,18 @@ namespace SwissTournament.API.Controllers
                 StartTime = tournament.StartTime,
                 
                 Players = tournament.Players.Select(p => new
-                {
-                    PlayerId = p.PlayerId,
-                    TournamentId = p.TournamentId,
-                    Name = p.Name,
-                    Standing = p.Standing
-                })
+                    {
+                        PlayerId = p.PlayerId,
+                        TournamentId = p.TournamentId,
+                        Name = p.Name,
+                        Standing = p.Standing
+                    }),
+
+                Matches = tournament.Matches.Where(m => m.Round == tournament.Round)
+                    .Select(m => new
+                    {
+                        Players = m.Matchups.Select(n => n.Player.Name)
+                    })
             };
 
             return CreatedAtRoute("DefaultApi", new { id = tournament.TournamentId }, tournamentDto);

@@ -24,10 +24,13 @@ namespace SwissTournament.API.Domain
             this.PlayerId = playerId;
         }
 
-        public Matchup(Match match, Player player)
-        {
-            this.MatchId = match.MatchId;
-            this.PlayerId = player.PlayerId;
-        }
+        public Matchup(Match match, Player player) : this(match.MatchId, player.PlayerId)
+        { }
+
+        public Matchup(Match match, int playerId) : this(match.MatchId, playerId)
+        { }
+
+        public Matchup()
+        { }
     }
 }

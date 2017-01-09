@@ -99,6 +99,7 @@
     <Compile Include="DTO\MatchupDto.cs" />
     <Compile Include="DTO\PlayerDto.cs" />
     <Compile Include="DTO\TournamentDto.cs" />
+    <Compile Include="Exceptions\ReadEntityException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -107,6 +108,8 @@
     <Compile Include="Infrastructure\TournamentDataContext.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\MatchRepository.cs" />
+    <Compile Include="Repository\MatchupRepository.cs" />
     <Compile Include="Repository\PlayerRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
     <Compile Include="Repository\TournamentRepository.cs" />

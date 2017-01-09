@@ -14,5 +14,11 @@ namespace SwissTournament.API.Domain
 
         public virtual ICollection<Matchup> Matchups { get; set; }
         public virtual Tournament Tournament { get; set; }
+
+        public Match(int tournamentId, int round)
+        {
+            TournamentId = tournamentId;
+            Round = round;
+        }
     }
 }
