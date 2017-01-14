@@ -17,7 +17,7 @@ namespace SwissTournament.API.Domain
         public virtual ICollection<Player> Players { get; set; }
         public virtual ICollection<Match> Matches { get; set; }
 
-        // TODO: Move this logic to Repository pattern
+        // TODO: Move this logic to Repository pattern?
         public Tournament(int totalRounds)
         {
             this.Round = 1;
