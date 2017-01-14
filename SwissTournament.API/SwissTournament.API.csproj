@@ -129,6 +129,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\DatabaseFactory.cs" />
+    <Compile Include="Infrastructure\DatabaseInitializer.cs" />
     <Compile Include="Infrastructure\Disposable.cs" />
     <Compile Include="Infrastructure\TournamentDataContext.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />

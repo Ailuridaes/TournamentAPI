@@ -7,7 +7,7 @@ namespace SwissTournament.API.Infrastructure
 {
     public class UnitOfWork
     {
-        private readonly DatabaseFactory _databaseFactory;
+        private readonly IDatabaseFactory _databaseFactory;
         private TournamentDataContext _dataContext;
 
         protected TournamentDataContext DataContext => _dataContext ?? (_dataContext = _databaseFactory.GetDataContext());
@@ -17,9 +17,9 @@ namespace SwissTournament.API.Infrastructure
             DataContext.SaveChanges();
         }
 
-        public UnitOfWork()
+        public UnitOfWork(IDatabaseFactory databaseFactory)
         {
-            _databaseFactory = DatabaseFactory.Instance;
+            _databaseFactory = databaseFactory;
         }
     }
 }

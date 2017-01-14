@@ -18,12 +18,12 @@ namespace SwissTournament.API.Repository
             set { _dataContext = value; }
         }
 
-        protected DatabaseFactory DatabaseFactory { get; set; }
+        protected IDatabaseFactory DatabaseFactory { get; set; }
         protected IDbSet<TEntity> DbSet { get; set; }
 
-        protected Repository()
+        protected Repository(IDatabaseFactory databaseFactory)
         {
-            DatabaseFactory = DatabaseFactory.Instance;
+            DatabaseFactory = databaseFactory;
 
             DbSet = DataContext.Set<TEntity>();
         }

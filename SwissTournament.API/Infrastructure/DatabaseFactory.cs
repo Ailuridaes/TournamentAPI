@@ -7,19 +7,9 @@ namespace SwissTournament.API.Infrastructure
 {
     public sealed class DatabaseFactory : Disposable, IDatabaseFactory
     {
-        private static readonly DatabaseFactory _instance = new DatabaseFactory();
         private readonly TournamentDataContext _dataContext;
 
-        // TODO: Use dependency injection instead of implementing DatabaseFactory as a singleton
-        public static DatabaseFactory Instance
-        {
-            get
-            {
-                return _instance;
-            }
-        }
-
-        private DatabaseFactory()
+        public DatabaseFactory()
         {
             _dataContext = new TournamentDataContext();
         }

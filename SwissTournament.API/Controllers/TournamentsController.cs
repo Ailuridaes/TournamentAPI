@@ -17,9 +17,15 @@ namespace SwissTournament.API.Controllers
 {
     public class TournamentsController : ApiController
     {
-        private TournamentService _tournamentService = new TournamentService();
-        // TODO: REMOVE once all dependencies are replaced
-        private TournamentDataContext db = new TournamentDataContext();
+        private TournamentService _tournamentService;
+        // TODO: REMOVE once all dependencies in controller are replaced
+        private TournamentDataContext db;
+
+        public TournamentsController(TournamentService tournamentService, IDatabaseFactory dbFactory)
+        { 
+            this._tournamentService = tournamentService;
+            this.db = dbFactory.GetDataContext();
+        }
 
         //// POST: api/Tournaments
         //[ResponseType(typeof(Tournament))]

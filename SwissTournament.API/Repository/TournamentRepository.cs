@@ -8,5 +8,8 @@ namespace SwissTournament.API.Repository
 {
     public class TournamentRepository : Repository<Domain.Tournament>
     {
+        public TournamentRepository(IDatabaseFactory databaseFactory) : base(databaseFactory)
+        {
+        }
     }
 }

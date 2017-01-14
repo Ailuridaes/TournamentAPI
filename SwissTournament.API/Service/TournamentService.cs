@@ -17,14 +17,13 @@ namespace SwissTournament.API.Service
         private readonly MatchupRepository _matchupRepository;
         private readonly UnitOfWork _unitOfWork;
 
-        public TournamentService()
+        public TournamentService(TournamentRepository tr, PlayerRepository pr, MatchRepository mr, MatchupRepository nr, UnitOfWork unitOfWork)
         {
-            // TODO: Use dependency injection
-            _tournamentRepository = new TournamentRepository();
-            _playerRepository = new PlayerRepository();
-            _matchRepository = new MatchRepository();
-            _matchupRepository = new MatchupRepository();
-            _unitOfWork = new UnitOfWork();
+            _tournamentRepository = tr;
+            _playerRepository = pr;
+            _matchRepository = mr;
+            _matchupRepository = nr;
+            _unitOfWork = unitOfWork;
         }
         public Tournament CreateTournament(IEnumerable<string> playerNames)
         {

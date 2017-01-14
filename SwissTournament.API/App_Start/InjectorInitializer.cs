@@ -1,6 +1,7 @@
 ﻿using SimpleInjector;
 using SimpleInjector.Extensions.ExecutionContextScoping;
 using SimpleInjector.Integration.WebApi;
+using SwissTournament.API.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,8 @@ namespace SwissTournament.API.App_Start
 
             GlobalConfiguration.Configuration.DependencyResolver =
                 new SimpleInjectorWebApiDependencyResolver(container);
+
+            container.GetInstance<DatabaseInitializer>().Initialize();
         }
     }
 }

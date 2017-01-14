@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SwissTournament.API.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,5 +8,8 @@ namespace SwissTournament.API.Repository
 {
     public class MatchupRepository : Repository<Domain.Matchup>
     {
+        public MatchupRepository(IDatabaseFactory databaseFactory) : base(databaseFactory)
+        {
+        }
     }
 }
