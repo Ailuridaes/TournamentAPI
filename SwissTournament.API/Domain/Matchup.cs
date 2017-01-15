@@ -14,6 +14,8 @@ namespace SwissTournament.API.Domain
         public int Wins { get; set; }
         public int Losses { get; set; }
         public int Ties { get; set; }
+        public Boolean DidWin { get; set; }
+        public Boolean DidTie { get; set; }
 
         public virtual Match Match { get; set; }
         public virtual Player Player { get; set; }

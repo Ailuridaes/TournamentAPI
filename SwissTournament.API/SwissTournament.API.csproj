@@ -136,6 +136,10 @@
     <Compile Include="Injection\DataAccessPackage.cs" />
     <Compile Include="Injection\RepositoryPackage.cs" />
     <Compile Include="Injection\ServicePackage.cs" />
+    <Compile Include="Migrations\201701152230349_AddResultsToMatchup.cs" />
+    <Compile Include="Migrations\201701152230349_AddResultsToMatchup.Designer.cs">
+      <DependentUpon>201701152230349_AddResultsToMatchup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\MatchRepository.cs" />
     <Compile Include="Repository\MatchupRepository.cs" />
@@ -170,6 +174,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201612290837445_InitialMigration.resx">
       <DependentUpon>201612290837445_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701152230349_AddResultsToMatchup.resx">
+      <DependentUpon>201701152230349_AddResultsToMatchup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
