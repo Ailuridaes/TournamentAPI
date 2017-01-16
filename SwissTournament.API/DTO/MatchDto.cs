@@ -10,11 +10,7 @@ namespace SwissTournament.API.DTO
         public int MatchId { get; set; }
         public int TournamentId { get; set; }
         public int Round { get; set; }
-        public Boolean isCompleted { get; set; }
-        
-        public class WithMatchups<TMatchup> : MatchDto
-        {
-            public IEnumerable<TMatchup> Matchups { get; set; }
-        }
+        public Boolean IsCompleted { get; set; }
+        public IEnumerable<MatchupDto> Matchups { get; set; }
     }
 }

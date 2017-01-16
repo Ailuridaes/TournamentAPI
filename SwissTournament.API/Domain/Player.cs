@@ -22,6 +22,9 @@ namespace SwissTournament.API.Domain
             this.Standing = 1;
         }
 
+        public Player()
+        {}
+
         public int GetMatchWins()
         {
             return Matchups.Where(n => n.DidWin == true).Count();

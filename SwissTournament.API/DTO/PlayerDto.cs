@@ -12,11 +12,19 @@ namespace SwissTournament.API.DTO
         public string Name { get; set; }
         public int Standing { get; set; }
 
-        public class WithMatchups<TMatchup> : PlayerDto
+        public class WithMatchups : PlayerDto
         {
-            public IEnumerable<TMatchup> Matchups { get; set; }
+            public IEnumerable<MatchupDto> Matchups { get; set; }
         }
 
-        // WithTournaments
+        public class WithScores : PlayerDto
+        {
+            public int MatchWins { get; set; }
+            public int MatchLosses { get; set; }
+            public int MatchTies { get; set; }
+            public int GameWins { get; set; }
+            public int GameLosses { get; set; }
+            public int GameTies { get; set; }
+        }
     }
 }

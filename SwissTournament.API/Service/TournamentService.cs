@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SwissTournament.API.Exceptions;
+using AutoMapper;
+using SwissTournament.API.DTO;
 
 namespace SwissTournament.API.Service
 {
@@ -16,16 +18,18 @@ namespace SwissTournament.API.Service
         private readonly MatchRepository _matchRepository;
         private readonly MatchupRepository _matchupRepository;
         private readonly UnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public TournamentService(TournamentRepository tr, PlayerRepository pr, MatchRepository mr, MatchupRepository nr, UnitOfWork unitOfWork)
+        public TournamentService(TournamentRepository tr, PlayerRepository pr, MatchRepository mr, MatchupRepository nr, UnitOfWork unitOfWork, IMapper mapper)
         {
             _tournamentRepository = tr;
             _playerRepository = pr;
             _matchRepository = mr;
             _matchupRepository = nr;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        public Tournament CreateTournament(IEnumerable<string> playerNames)
+        public TournamentDto CreateTournament(IEnumerable<string> playerNames)
         {
             Tournament tournament = _tournamentRepository.Add(new Tournament());
 
@@ -44,7 +48,7 @@ namespace SwissTournament.API.Service
 
             StartTournament(tournament);
 
-            return tournament;
+            return _mapper.Map<TournamentDto>(tournament);  
         }
 
         public void StartTournament(Tournament tournament)

@@ -14,7 +14,7 @@ namespace SwissTournament.API.Migrations
                         MatchId = c.Int(nullable: false, identity: true),
                         TournamentId = c.Int(nullable: false),
                         Round = c.Int(nullable: false),
-                        isCompleted = c.Boolean(nullable: false),
+                        IsCompleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.MatchId)
                 .ForeignKey("dbo.Tournaments", t => t.TournamentId, cascadeDelete: true)

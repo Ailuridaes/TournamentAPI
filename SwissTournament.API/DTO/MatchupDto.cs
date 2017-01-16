@@ -13,21 +13,8 @@ namespace SwissTournament.API.DTO
         public int Wins { get; set; }
         public int Losses { get; set; }
         public int Ties { get; set; }
-
-        public class WithMatch : PlayerDto
-        {
-            public MatchDto Match { get; set; }
-        }
-
-        public class WithPlayer : TournamentDto
-        {
-            public PlayerDto Player { get; set; }
-        }
-
-        public class WithAll : TournamentDto
-        {
-            public PlayerDto Players { get; set; }
-            public MatchDto Matches { get; set; }
-        }
+        public Boolean DidWin { get; set; }
+        public Boolean DidTie { get; set; }
+        public string PlayerName { get; set; }
     }
 }
