@@ -51,7 +51,7 @@ namespace SwissTournament.API.Service
             return _mapper.Map<TournamentDto>(tournament);  
         }
 
-        public void StartTournament(Tournament tournament)
+        private void StartTournament(Tournament tournament)
         {
             var rnd = new Random();
             List<int> playerIds = tournament.Players.OrderBy(p => rnd.Next()).Select(p => p.PlayerId).ToList();
@@ -65,7 +65,9 @@ namespace SwissTournament.API.Service
             _unitOfWork.Commit();
         }
 
-        public Tournament GetTournament(int tournamentId)
+        // Helper classes
+
+        private Tournament GetTournament(int tournamentId)
         {
             Tournament tournament = _tournamentRepository.GetById(tournamentId);
 

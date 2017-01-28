@@ -20,10 +20,9 @@ namespace SwissTournament.API.Service
         private readonly UnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public MatchService(TournamentRepository tr, PlayerRepository pr, MatchRepository mr, MatchupRepository nr, UnitOfWork unitOfWork, IMapper mapper)
+        public MatchService(TournamentRepository tr, MatchRepository mr, MatchupRepository nr, UnitOfWork unitOfWork, IMapper mapper)
         {
             _tournamentRepository = tr;
-            _playerRepository = pr;
             _matchRepository = mr;
             _matchupRepository = nr;
             _unitOfWork = unitOfWork;
@@ -44,13 +43,33 @@ namespace SwissTournament.API.Service
             return _mapper.Map<IEnumerable<MatchDto>>(matches);
         }
 
-        public Tournament GetTournament(int tournamentId)
+        // Helper classes
+
+        private Tournament GetTournament(int tournamentId)
         {
             Tournament tournament = _tournamentRepository.GetById(tournamentId);
 
             if (tournament == null) throw new ReadEntityException("Tournament");
 
             return tournament;
+        }
+
+        private Match GetMatch(int matchId)
+        {
+            Match match = _matchRepository.GetById(matchId);
+
+            if (match == null) throw new ReadEntityException("Match");
+
+            return match;
+        }
+
+        private Matchup GetMatchup(int matchupId)
+        {
+            Matchup matchup = _matchupRepository.GetById(matchupId);
+
+            if (matchup == null) throw new ReadEntityException("Matchup");
+
+            return matchup;
         }
     }
 }
