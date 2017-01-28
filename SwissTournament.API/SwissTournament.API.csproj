@@ -129,7 +129,9 @@
     <Compile Include="DTO\MatchupDto.cs" />
     <Compile Include="DTO\PlayerDto.cs" />
     <Compile Include="DTO\TournamentDto.cs" />
+    <Compile Include="Exceptions\EntityHierarchyException.cs" />
     <Compile Include="Exceptions\ReadEntityException.cs" />
+    <Compile Include="Exceptions\UpdateEntityException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

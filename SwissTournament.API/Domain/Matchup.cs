@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SwissTournament.API.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -34,5 +35,14 @@ namespace SwissTournament.API.Domain
 
         public Matchup()
         { }
+
+        public void SetResults(MatchupDto matchup)
+        {
+            Wins = matchup.Wins;
+            Losses = matchup.Losses;
+            Ties = matchup.Ties;
+            DidWin = matchup.DidWin;
+            DidTie = matchup.DidTie;
+        }
     }
 }

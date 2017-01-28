@@ -43,6 +43,47 @@ namespace SwissTournament.API.Service
             return _mapper.Map<IEnumerable<MatchDto>>(matches);
         }
 
+        public void Update(MatchDto match)
+        {
+            var matchups = match.Matchups.OrderByDescending(n => n.Wins).ToList();
+            var dbMatch = GetMatch(match.Id);
+
+            // Sync win/loss records
+            matchups[0].Losses = matchups[1].Wins;
+            matchups[1].Losses = matchups[0].Wins;
+            matchups[1].Ties = matchups[0].Ties;
+
+            if (matchups[0].Wins > matchups[1].Wins)
+            {
+                matchups[0].DidWin = true;
+            }
+            else
+            {
+                matchups[0].DidTie = true;
+                matchups[1].DidTie = true;
+            }
+
+            foreach(MatchupDto matchup in matchups)
+            {
+                var dbMatchup = GetMatchup(matchup.Id);
+
+                // Verify Matchup object matches child of Match objec
+                if (!dbMatch.Matchups.Any(n => n.Id == dbMatchup.Id) || dbMatchup.MatchId != matchup.MatchId || dbMatchup.PlayerId != matchup.PlayerId)
+                {
+                    throw new EntityHierarchyException("Matchup", "Match");
+                }
+
+                dbMatchup.SetResults(matchup);
+                _matchupRepository.Update(dbMatchup);
+            }
+            
+            dbMatch.IsCompleted = true;
+
+            _matchRepository.Update(dbMatch);
+
+            _unitOfWork.Commit();
+        }
+
         // Helper classes
 
         private Tournament GetTournament(int tournamentId)

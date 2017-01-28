@@ -49,5 +49,27 @@ namespace SwissTournament.API.Controllers
                 return NotFound();
             };
         }
+
+        // PUT: api/Matches/{matchId}
+        [HttpPut]
+        [Route("api/Matches/{matchId}")]
+        public IHttpActionResult PutMatch(int matchId, MatchDto match)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                _matchService.Update(match);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
     }
 }
