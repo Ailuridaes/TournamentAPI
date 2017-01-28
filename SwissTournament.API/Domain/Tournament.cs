@@ -7,7 +7,7 @@ namespace SwissTournament.API.Domain
 {
     public class Tournament
     {
-        public int TournamentId { get; set; }
+        public int Id { get; set; }
         public int Round { get; set; }
         public int TotalRounds { get; set; }
         public DateTime StartTime { get; set; }

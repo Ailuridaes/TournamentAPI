@@ -7,7 +7,7 @@ namespace SwissTournament.API.DTO
 {
     public class MatchDto
     {
-        public int MatchId { get; set; }
+        public int Id { get; set; }
         public int TournamentId { get; set; }
         public int Round { get; set; }
         public Boolean IsCompleted { get; set; }

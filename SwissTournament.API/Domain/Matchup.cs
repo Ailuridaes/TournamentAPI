@@ -8,7 +8,7 @@ namespace SwissTournament.API.Domain
 {
     public class Matchup
     {
-        public int MatchupId { get; set; }
+        public int Id { get; set; }
         public int MatchId { get; set; }
         public int? PlayerId { get; set; }
         public int Wins { get; set; }
@@ -26,10 +26,10 @@ namespace SwissTournament.API.Domain
             this.PlayerId = playerId;
         }
 
-        public Matchup(Match match, Player player) : this(match.MatchId, player.PlayerId)
+        public Matchup(Match match, Player player) : this(match.Id, player.Id)
         { }
 
-        public Matchup(Match match, int playerId) : this(match.MatchId, playerId)
+        public Matchup(Match match, int playerId) : this(match.Id, playerId)
         { }
 
         public Matchup()

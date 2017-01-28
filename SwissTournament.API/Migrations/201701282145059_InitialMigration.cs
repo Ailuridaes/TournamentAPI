@@ -11,12 +11,12 @@ namespace SwissTournament.API.Migrations
                 "dbo.Matches",
                 c => new
                     {
-                        MatchId = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         TournamentId = c.Int(nullable: false),
                         Round = c.Int(nullable: false),
                         IsCompleted = c.Boolean(nullable: false),
                     })
-                .PrimaryKey(t => t.MatchId)
+                .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Tournaments", t => t.TournamentId, cascadeDelete: true)
                 .Index(t => t.TournamentId);
             
@@ -24,14 +24,16 @@ namespace SwissTournament.API.Migrations
                 "dbo.Matchups",
                 c => new
                     {
-                        MatchupId = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         MatchId = c.Int(nullable: false),
                         PlayerId = c.Int(),
                         Wins = c.Int(nullable: false),
                         Losses = c.Int(nullable: false),
                         Ties = c.Int(nullable: false),
+                        DidWin = c.Boolean(nullable: false),
+                        DidTie = c.Boolean(nullable: false),
                     })
-                .PrimaryKey(t => t.MatchupId)
+                .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Players", t => t.PlayerId)
                 .ForeignKey("dbo.Matches", t => t.MatchId, cascadeDelete: true)
                 .Index(t => t.MatchId)
@@ -41,12 +43,12 @@ namespace SwissTournament.API.Migrations
                 "dbo.Players",
                 c => new
                     {
-                        PlayerId = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         TournamentId = c.Int(nullable: false),
                         Name = c.String(),
                         Standing = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.PlayerId)
+                .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Tournaments", t => t.TournamentId, cascadeDelete: true)
                 .Index(t => t.TournamentId);
             
@@ -54,13 +56,13 @@ namespace SwissTournament.API.Migrations
                 "dbo.Tournaments",
                 c => new
                     {
-                        TournamentId = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
                         Round = c.Int(nullable: false),
                         TotalRounds = c.Int(nullable: false),
                         StartTime = c.DateTime(nullable: false),
                         EndTime = c.DateTime(),
                     })
-                .PrimaryKey(t => t.TournamentId);
+                .PrimaryKey(t => t.Id);
             
         }
         

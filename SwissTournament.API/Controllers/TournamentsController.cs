@@ -27,7 +27,7 @@ namespace SwissTournament.API.Controllers
 
             var tournament = _tournamentService.CreateTournament(options.PlayerNames);
 
-            return CreatedAtRoute("DefaultApi", new { id = tournament.TournamentId }, tournament);
+            return CreatedAtRoute("DefaultApi", new { id = tournament.Id }, tournament);
         }
 
 

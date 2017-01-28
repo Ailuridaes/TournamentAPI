@@ -36,12 +36,12 @@ namespace SwissTournament.API.Service
             // TODO: Check # of players?
             foreach (string name in playerNames)
             {
-                _playerRepository.Add(new Player(name, tournament.TournamentId));
+                _playerRepository.Add(new Player(name, tournament.Id));
             }
 
             if (playerNames.Count() % 2 != 0)
             {
-                _playerRepository.Add(new Player("BYE", tournament.TournamentId));
+                _playerRepository.Add(new Player("BYE", tournament.Id));
             }
 
             _unitOfWork.Commit();
@@ -54,10 +54,10 @@ namespace SwissTournament.API.Service
         private void StartTournament(Tournament tournament)
         {
             var rnd = new Random();
-            List<int> playerIds = tournament.Players.OrderBy(p => rnd.Next()).Select(p => p.PlayerId).ToList();
+            List<int> playerIds = tournament.Players.OrderBy(p => rnd.Next()).Select(p => p.Id).ToList();
 
             for(int i = 0; i < playerIds.Count()/2; i++) {
-                Match match = _matchRepository.Add(new Match(tournament.TournamentId, 1));
+                Match match = _matchRepository.Add(new Match(tournament.Id, 1));
                 _matchupRepository.Add(new Matchup { Match = match, PlayerId = playerIds[i] });
                 _matchupRepository.Add(new Matchup { Match = match, PlayerId = playerIds[playerIds.Count() / 2 + i] });
             }
