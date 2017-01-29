@@ -1,7 +1,6 @@
 ﻿using SimpleInjector;
 using SimpleInjector.Packaging;
-using SwissTournament.API.Service;
-using System.Linq;
+using SwissTournament.Core.Service;
 
 namespace SwissTournament.Api.Injection
 {
@@ -9,7 +8,8 @@ namespace SwissTournament.Api.Injection
     {
         public void RegisterServices(Container container)
         {
-            container.Register<TournamentService>(Lifestyle.Transient);
+            container.Register<ITournamentService, TournamentService>(Lifestyle.Transient);
+            container.Register<IMatchService, MatchService>(Lifestyle.Transient);
         }
     }
 }

@@ -144,6 +144,10 @@
       <Project>{FD6A4F9A-E33C-43FA-8C8A-F6419329CB16}</Project>
       <Name>SwissTournament.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SwissTournament.Data\SwissTournament.Data.csproj">
+      <Project>{f6649f7f-1ce2-419e-a2eb-f45a0cd72be9}</Project>
+      <Name>SwissTournament.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

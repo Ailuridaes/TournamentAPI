@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SwissTournament.Core.Infrastructure;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 namespace SwissTournament.Data.Infrastructure
 {
-    public class DatabaseInitializer
+    public class DatabaseInitializer : IDatabaseInitializer
     {
         public void Initialize()
         {

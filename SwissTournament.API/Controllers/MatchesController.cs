@@ -60,6 +60,11 @@ namespace SwissTournament.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            if (matchId != match.Id)
+            {
+                return BadRequest();
+            }
+
             try
             {
                 _matchService.Update(match);

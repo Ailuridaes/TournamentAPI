@@ -2,11 +2,7 @@
 using SimpleInjector;
 using SimpleInjector.Packaging;
 using SwissTournament.Core.Domain;
-using SwissTournament.API.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using SwissTournament.Core.DTO;
 
 namespace SwissTournament.API.Injection
 {

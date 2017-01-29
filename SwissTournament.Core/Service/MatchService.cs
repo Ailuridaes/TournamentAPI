@@ -1,13 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using SwissTournament.Core.Domain;
 using SwissTournament.Core.DTO;
 using SwissTournament.Core.Exceptions;
 using SwissTournament.Core.Infrastructure;
 using SwissTournament.Core.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace SwissTournament.Core.Service
 {
@@ -18,7 +16,7 @@ namespace SwissTournament.Core.Service
         void Update(MatchDto match);
     }
 
-    public class MatchService
+    public class MatchService : IMatchService
     {
         private readonly ITournamentRepository _tournamentRepository;
         private readonly IPlayerRepository _playerRepository;

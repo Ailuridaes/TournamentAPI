@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using SwissTournament.Core.Infrastructure;
 
 namespace SwissTournament.Data.Infrastructure
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly IDatabaseFactory _databaseFactory;
         private TournamentDataContext _dataContext;
