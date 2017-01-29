@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using SimpleInjector;
 using SimpleInjector.Packaging;
-using SwissTournament.API.Domain;
+using SwissTournament.Core.Domain;
 using SwissTournament.API.DTO;
 using System;
 using System.Collections.Generic;

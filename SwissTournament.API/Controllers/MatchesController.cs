@@ -1,6 +1,6 @@
-﻿using SwissTournament.API.DTO;
-using SwissTournament.API.Exceptions;
-using SwissTournament.API.Service;
+﻿using SwissTournament.Core.DTO;
+using SwissTournament.Core.Exceptions;
+using SwissTournament.Core.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +13,9 @@ namespace SwissTournament.API.Controllers
 {
     public class MatchesController : ApiController
     {
-        private MatchService _matchService;
+        private IMatchService _matchService;
 
-        public MatchesController(MatchService matchService)
+        public MatchesController(IMatchService matchService)
         {
             this._matchService = matchService;
         }

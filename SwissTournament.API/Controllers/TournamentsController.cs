@@ -1,17 +1,16 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Description;
-using SwissTournament.API.Infrastructure;
 using SwissTournament.API.Requests;
-using SwissTournament.API.Service;
-using SwissTournament.API.DTO;
+using SwissTournament.Core.Service;
+using SwissTournament.Core.DTO;
 
 namespace SwissTournament.API.Controllers
 {
     public class TournamentsController : ApiController
     {
-        private TournamentService _tournamentService;
+        private ITournamentService _tournamentService;
 
-        public TournamentsController(TournamentService tournamentService)
+        public TournamentsController(ITournamentService tournamentService)
         { 
             this._tournamentService = tournamentService;
         }

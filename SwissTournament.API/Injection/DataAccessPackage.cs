@@ -2,7 +2,7 @@
 using SimpleInjector.Packaging;
 using SwissTournament.API.Infrastructure;
 
-namespace Acme.Api.Injection
+namespace SwissTournament.Api.Injection
 {
     public class DataAccessPackage : IPackage
     {

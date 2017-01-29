@@ -3,7 +3,7 @@ using SimpleInjector.Packaging;
 using SwissTournament.API.Repository;
 using System.Linq;
 
-namespace Acme.Api.Injection
+namespace SwissTournament.Api.Injection
 {
     public class RepositoryPackage : IPackage
     {
