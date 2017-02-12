@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201701282145059_InitialMigration.Designer.cs">
       <DependentUpon>201701282145059_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702112211006_ChangeRankingName.cs" />
+    <Compile Include="Migrations\201702112211006_ChangeRankingName.Designer.cs">
+      <DependentUpon>201702112211006_ChangeRankingName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\MatchRepository.cs" />
@@ -72,6 +76,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701282145059_InitialMigration.resx">
       <DependentUpon>201701282145059_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702112211006_ChangeRankingName.resx">
+      <DependentUpon>201702112211006_ChangeRankingName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

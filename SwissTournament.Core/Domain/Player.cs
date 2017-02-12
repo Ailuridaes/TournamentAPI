@@ -10,7 +10,7 @@ namespace SwissTournament.Core.Domain
         public int Id { get; set; }
         public int TournamentId { get; set; }
         public string Name { get; set; }
-        public int Standing { get; set; }
+        public int Ranking { get; set; }
 
         public virtual ICollection<Matchup> Matchups { get; set; }
         public virtual Tournament Tournament { get; set; }
@@ -19,7 +19,7 @@ namespace SwissTournament.Core.Domain
         {
             this.Name = playerName;
             this.TournamentId = tournamentId;
-            this.Standing = 1;
+            this.Ranking = 1;
         }
 
         public Player()
@@ -54,6 +54,41 @@ namespace SwissTournament.Core.Domain
             return Matchups.Sum(n => n.Ties);
         }
 
+        public double GetMatchWinPercentage(bool withByes = true)
+        {
+            IEnumerable<Matchup> matchups;
+            if (withByes)
+            {
+                matchups = this.Matchups;
+            }
+            else
+            {
+                matchups = Matchups.Where(n => !(n.Match.Matchups.Any(mn => mn.Player.Name == "BYE")));
+            }
+
+            var result = (double) (matchups.Count(n => n.DidWin == true)*3 + matchups.Count(n => n.DidTie)) / (double)(matchups.Count() * 3);
+
+            // Lower limit of match-win percentage set to 0.33 by MTG Tournament Rules
+            return Math.Max(result, 0.33);
+        }
+
+        public double GetGameWinPercentage(bool withByes = true)
+        {
+            IEnumerable<Matchup> matchups;
+            if (withByes)
+            {
+                matchups = this.Matchups;
+            }
+            else
+            {
+                matchups = Matchups.Where(n => !(n.Match.Matchups.Any(mn => mn.Player.Name == "BYE")));
+            }
+
+            double result = (double) matchups.Sum(n => n.Wins * 3 + n.Ties) / (double)(matchups.Sum(n => n.Wins + n.Ties + n.Losses) * 3);
+
+            // Lower limit of game-win percentage set to 0.33 by MTG Tournament Rules
+            return Math.Max(result, 0.33);
+        }
 
 
     }

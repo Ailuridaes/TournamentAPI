@@ -10,7 +10,7 @@ namespace SwissTournament.Core.DTO
         public int Id { get; set; }
         public int TournamentId { get; set; }
         public string Name { get; set; }
-        public int Standing { get; set; }
+        public int Ranking { get; set; }
 
         public class WithMatchups : PlayerDto
         {
