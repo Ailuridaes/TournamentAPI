@@ -36,14 +36,14 @@ namespace SwissTournament.Core.Service
 
         public IEnumerable<MatchDto> GetMatches(int tournamentId)
         {
-            Tournament tournament = GetTournament(tournamentId);
+            Tournament tournament = getTournament(tournamentId);
             IEnumerable<Match> matches = tournament.Matches;
             return _mapper.Map<IEnumerable<MatchDto>>(matches);
         }
 
         public IEnumerable<MatchDto> GetCurrentMatches(int tournamentId)
         {
-            Tournament tournament = GetTournament(tournamentId);
+            Tournament tournament = getTournament(tournamentId);
             IEnumerable<Match> matches = tournament.Matches.Where(m => m.Round == tournament.Round);
             return _mapper.Map<IEnumerable<MatchDto>>(matches);
         }
@@ -51,7 +51,7 @@ namespace SwissTournament.Core.Service
         public void Update(MatchDto match)
         {
             var matchups = match.Matchups.OrderByDescending(n => n.Wins).ToList();
-            var dbMatch = GetMatch(match.Id);
+            var dbMatch = getMatch(match.Id);
 
             // Sync win/loss records
             matchups[0].Losses = matchups[1].Wins;
@@ -70,9 +70,9 @@ namespace SwissTournament.Core.Service
 
             foreach(MatchupDto matchup in matchups)
             {
-                var dbMatchup = GetMatchup(matchup.Id);
+                var dbMatchup = getMatchup(matchup.Id);
 
-                // Verify Matchup object matches child of Match objec
+                // Verify Matchup object matches child of Match object
                 if (!dbMatch.Matchups.Any(n => n.Id == dbMatchup.Id) || dbMatchup.MatchId != matchup.MatchId || dbMatchup.PlayerId != matchup.PlayerId)
                 {
                     throw new EntityHierarchyException("Matchup", "Match");
@@ -89,9 +89,9 @@ namespace SwissTournament.Core.Service
             _unitOfWork.Commit();
         }
 
-        // Helper classes
+        // Helper methods
 
-        private Tournament GetTournament(int tournamentId)
+        private Tournament getTournament(int tournamentId)
         {
             Tournament tournament = _tournamentRepository.GetById(tournamentId);
 
@@ -100,7 +100,7 @@ namespace SwissTournament.Core.Service
             return tournament;
         }
 
-        private Match GetMatch(int matchId)
+        private Match getMatch(int matchId)
         {
             Match match = _matchRepository.GetById(matchId);
 
@@ -109,7 +109,7 @@ namespace SwissTournament.Core.Service
             return match;
         }
 
-        private Matchup GetMatchup(int matchupId)
+        private Matchup getMatchup(int matchupId)
         {
             Matchup matchup = _matchupRepository.GetById(matchupId);
 

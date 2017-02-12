@@ -73,18 +73,69 @@ namespace SwissTournament.Core.Service
 
         public void SubmitRound(int tournamentId)
         {
+            Tournament tournament = getTournament(tournamentId);
+
+            if(tournament.Matches.Any(m => m.IsCompleted == false))
+            {
+                throw new Exception("Results have not been submitted for all matches");
+            }
+
+            updateRankings(tournament);
+
             // TODO: Implement pairing for next round
+
+            _unitOfWork.Commit();
         }
 
-        // Helper classes
+        // Helper methods
 
-        private Tournament GetTournament(int tournamentId)
+        private Tournament getTournament(int tournamentId)
         {
             Tournament tournament = _tournamentRepository.GetById(tournamentId);
 
             if (tournament == null) throw new ReadEntityException("Tournament");
 
             return tournament;
+        }
+
+        private void updateRankings(Tournament tournament)
+        {
+            IEnumerable<IGrouping<double, Player>> rankedPlayers;
+
+            // GroupBy match points
+            rankedPlayers = tournament.Players.GroupBy(p => (double)((p.GetMatchWins() * 3) + p.GetMatchTies())).OrderByDescending(g => g.Key);
+
+            // GroupBy opponents' match-win percentage
+            rankedPlayers = rankedPlayers.SelectMany(g => g.GroupBy(p => p.Matchups.Average(n => n.Match.Matchups
+                .Where(oN => oN.PlayerId != p.Id).Single().Player.GetMatchWinPercentage(false)))
+                .OrderByDescending(h => h.Key));
+
+            if (rankedPlayers.Any(g => g.Count() > 1))
+            {
+                // GroupBy game-win percentage
+                rankedPlayers = rankedPlayers.SelectMany(g => g.GroupBy(p => p.GetGameWinPercentage())
+                    .OrderByDescending(h => h.Key));
+            }
+
+            if (rankedPlayers.Any(g => g.Count() > 1))
+            {
+                // GroupBy opponents' game-win percentage
+                rankedPlayers = rankedPlayers.SelectMany(g => g.GroupBy(p => p.Matchups.Average(n => n.Match.Matchups
+                .Where(oN => oN.PlayerId != p.Id).Single().Player.GetGameWinPercentage(false)))
+                .OrderByDescending(h => h.Key));
+            }
+
+            int rank = 1;
+
+            foreach(IGrouping<double, Player> group in rankedPlayers)
+            {
+                foreach(Player player in group.ToList())
+                {
+                    player.Ranking = rank;
+                    _playerRepository.Update(player);
+                }
+                rank += group.Count();
+            }
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Web.Http.Description;
 using SwissTournament.API.Requests;
 using SwissTournament.Core.Service;
 using SwissTournament.Core.DTO;
+using System;
+using System.Net;
 
 namespace SwissTournament.API.Controllers
 {
@@ -29,6 +31,22 @@ namespace SwissTournament.API.Controllers
             return CreatedAtRoute("DefaultApi", new { id = tournament.Id }, tournament);
         }
 
+        // PUT: api/Tournaments/submitRound/{tournamentId}
+        [HttpPut]
+        [Route("api/Tournaments/submitRound/{tournamentId}")]
+        public IHttpActionResult submitTournamentRound(int tournamentId)
+        {
+            try
+            {
+                _tournamentService.SubmitRound(tournamentId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
         //// GET: api/Tournaments
         //public IQueryable<Tournament> GetTournaments()
