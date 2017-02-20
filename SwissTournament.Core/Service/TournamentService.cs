@@ -25,6 +25,7 @@ namespace SwissTournament.Core.Service
         private readonly IMatchupRepository _matchupRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly Random _rnd;
 
         public TournamentService(ITournamentRepository tr, IPlayerRepository pr, IMatchRepository mr, IMatchupRepository nr, IUnitOfWork unitOfWork, IMapper mapper)
         {
@@ -34,6 +35,7 @@ namespace SwissTournament.Core.Service
             _matchupRepository = nr;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _rnd = new Random();
         }
         public TournamentDto CreateTournament(IEnumerable<string> playerNames)
         {
@@ -59,8 +61,7 @@ namespace SwissTournament.Core.Service
 
         private void StartTournament(Tournament tournament)
         {
-            var rnd = new Random();
-            List<int> playerIds = tournament.Players.OrderBy(p => rnd.Next()).Select(p => p.Id).ToList();
+            List<int> playerIds = tournament.Players.OrderBy(p => _rnd.Next()).Select(p => p.Id).ToList();
 
             for(int i = 0; i < playerIds.Count()/2; i++) {
                 Match match = _matchRepository.Add(new Match(tournament.Id, 1));
@@ -79,6 +80,8 @@ namespace SwissTournament.Core.Service
             {
                 throw new Exception("Results have not been submitted for all matches");
             }
+
+            tournament.Round++;
 
             updateRankings(tournament);
 
@@ -136,6 +139,74 @@ namespace SwissTournament.Core.Service
                 }
                 rank += group.Count();
             }
+        }
+
+        private void createMatches(Tournament tournament)
+        {
+            IEnumerable<IGrouping<int, Player>> groups = tournament.Players.OrderBy(p => _rnd.Next()).GroupBy(p => p.GetMatchWins() * 3 + p.GetMatchTies()).OrderByDescending(g => g.Key);
+
+            createRoundPairs(groups);
+        }
+
+        private ICollection<Tuple<Player, Player>> createRoundPairs(IEnumerable<IGrouping<int, Player>> groups)
+        {
+            throw new NotImplementedException();
+        }
+
+        private ICollection<Tuple<Player, Player>> createGroupPairs(List<Player> group)
+        {
+            // Verify group has even number of players
+            if (group.Count() % 2 != 0)
+            {
+                throw new Exception("Group passed to createGroupPairs() with uneven number of players");
+            }
+
+            ICollection<Tuple<Player, Player>> pairs = new List<Tuple<Player, Player>>();
+            int i = 1;
+
+            while (i < group.Count())
+            {
+                if (!canPair(group[0], group[i]))
+                {
+                    i++;
+                }
+                else
+                {
+                    pairs.Add(new Tuple<Player, Player>(group[0], group[i]));
+
+                    if (group.Count() > 2)
+                    {
+                        List<Player> tempList = new List<Player>(group);
+                        tempList.Remove(group[0]);
+                        tempList.Remove(group[i]);
+                        try
+                        {
+                            var newPairs = createGroupPairs(tempList);
+                            pairs.Concat(newPairs);
+                        }
+                        catch (CannotPairException ex)
+                        {
+                            i++;
+                        }
+                    }
+
+                    return pairs;
+                }
+
+            }
+
+            // iterated through entire group without successfully pairing
+            throw new CannotPairException();
+        }
+
+        private bool canPair(Player p1, Player p2)
+        {
+            return p1.Matchups.SelectMany(n => n.Match.Matchups).Any(n => n.PlayerId == p2.Id);
+        }
+
+        private class CannotPairException : Exception
+        {
+            public CannotPairException() : base("Could not pair players within group") { }
         }
     }
 }
