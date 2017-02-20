@@ -145,12 +145,89 @@ namespace SwissTournament.Core.Service
         {
             IEnumerable<IGrouping<int, Player>> groups = tournament.Players.OrderBy(p => _rnd.Next()).GroupBy(p => p.GetMatchWins() * 3 + p.GetMatchTies()).OrderByDescending(g => g.Key);
 
-            createRoundPairs(groups);
+            ICollection<Tuple<Player, Player>> pairs = createRoundPairs(groups);
+            // TODO: take pairs and create matchups
         }
 
         private ICollection<Tuple<Player, Player>> createRoundPairs(IEnumerable<IGrouping<int, Player>> groups)
         {
-            throw new NotImplementedException();
+            var g = groups.Select(group => group.ToList()).ToList();
+            ICollection<Tuple<Player, Player>> pairs = new List<Tuple<Player, Player>>();
+
+            int i = 0;
+            int iHold = 0;
+            int iPrevHold = 0;
+            Player heldPlayer = null;
+            Player addedPlayer = null;
+
+            while (i < g.Count)
+            {
+                if(heldPlayer == null && g.Count() + (addedPlayer == null ? 0 : 1) % 2 != 0)
+                {
+                    iHold = g[i].Count - 1;
+                    heldPlayer = g[i][iHold];
+                }
+
+                if (addedPlayer != null)
+                {
+                    g[i].Add(addedPlayer);
+                    addedPlayer = null;
+                }
+
+                List<Player> tempList = new List<Player>(g[i]);
+                if (heldPlayer != null) tempList.Remove(heldPlayer);
+
+                try
+                {
+                    var newPairs = createGroupPairs(tempList);
+                    pairs = pairs.Concat(newPairs).ToList();
+                }
+                catch(CannotPairException ex)
+                {
+                    // 1. Try different held player
+                    if(iHold > 0)
+                    {
+                        iHold--;
+                        heldPlayer = g[i][iHold];
+                        continue;
+                    }
+                    // 2. Try different pair down held player from the previous group
+                    //else if (iPrevHold > 0)
+                    //{
+                    //    // TODO: See if can successfully pair previous group w/ different pairDown
+                    //}
+                    // 3. Combine with the next group
+                    else if (i < g.Count - 1)
+                    {
+                        g[i] = g[i].Concat(g[i + 1]).ToList();
+                        g.RemoveAt(i + 1);
+                        iHold = 0;
+                        heldPlayer = null;
+                        continue;
+                    }
+                    // 4. Combine with the previous group
+                    else if (i > 0)
+                    {
+                        g[i - 1] = g[i - 1].Concat(g[i]).ToList();
+                        g.RemoveAt(i);
+                        iHold = 0;
+                        heldPlayer = null;
+                        iPrevHold = 0;
+                        addedPlayer = null;
+                        i--;
+                        continue;
+                    }
+                }
+
+                // Successful pairing within group
+                iPrevHold = iHold;
+                iHold = 0;
+                addedPlayer = heldPlayer;
+                heldPlayer = null;
+                i++;
+            }
+
+            return pairs;
         }
 
         private ICollection<Tuple<Player, Player>> createGroupPairs(List<Player> group)
@@ -182,7 +259,7 @@ namespace SwissTournament.Core.Service
                         try
                         {
                             var newPairs = createGroupPairs(tempList);
-                            pairs.Concat(newPairs);
+                            pairs = pairs.Concat(newPairs).ToList();
                         }
                         catch (CannotPairException ex)
                         {
